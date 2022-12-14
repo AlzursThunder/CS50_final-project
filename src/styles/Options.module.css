@@ -5,8 +5,15 @@
     align-items: center;
 }
 
-.options {
+.options-container {
     display: flex;
+    flex-direction: row;
+}
+
+.select-container {
+    max-width: 360px;
+    text-align: center;
+    padding: 0.5em;
 }
 
 .categories--select {
@@ -15,10 +22,12 @@
 }
 
 .categories--select {
+    font-size: 1rem;
     background-color: #000;
     color: #fff;
     border: none;
     border-radius: 10px;
+    padding: 1em;
 }
 
 .categories--select > option {
@@ -26,8 +35,10 @@
     color: #fff;
 }
 
-.categories-container {
+.radio--container {
     display: flex;
+    flex-direction: column;
+    margin-left: 2em;
 }
 
 .btns--container {

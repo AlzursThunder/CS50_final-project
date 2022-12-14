@@ -10,40 +10,42 @@ import styles from '../styles/Options.module.css'
 // https://opentdb.com/api.php?amount=10&difficulty={diff level} - for specific diff level
 
 export default function Options({
-	render
+	render,
+	categories
 }) {
-	const [categories, setCategories] = useState([])
-	const [] = useState({
-		questionNum: 5,
-		categoryId: 0,
-		difficultyLevel: ''
-	})
-	const categoriesOption = categories.map(category => {return (
+	const categoriesOption = categories.map(category => (
 		<option key={category.id} value={category.id}>{category.name}</option>
-	)})
-	// console.log(categoriesOption);
-	const makeYourChoice = (
-		<select className={styles['categories--select']}>
-			<option value="">Choose category</option>
-			{categoriesOption}
-		</select>
+	))
+
+	const chooseCategory = (
+		<>
+			<select className={styles['categories--select']}>
+				<option value="">Choose category</option>
+				{categoriesOption}
+			</select>
+		</>
 	)
-	// console.log(makeYourChoice);
-	useEffect(() => {
-		async function getApi(link, setState, text) {
-			const res = await fetch(link)
-			const data = await res.json()
-			setState(() => data[text])
-		}
-		getApi('https://opentdb.com/api_category.php',setCategories, 'trivia_categories')
-		// categories ? setCategories(categories.trivia_categories) : null
-	}, [])
 
 	return (
 		<div className={styles['options--main']}>
 			<h1>Categories</h1>
-			<div className={styles.options}>
-				{makeYourChoice}
+			<div className={styles['options-container']}>
+				<div className={styles['select-container']}>
+					{chooseCategory}
+					<p>Leave empty if want to face questions from every category</p>
+				</div>
+				<div className={styles['radio--container']}>
+					<p></p>
+					<label>
+						<input type="radio" name="level" id="" /> Easy
+					</label>
+					<label>
+						<input type="radio" name="level" id="" /> Medium
+					</label>
+					<label>
+						<input type="radio" name="level" id="" /> Hard
+					</label>
+				</div>
 			</div>
 			<div className={styles['btns--container']}>
 				<Button handleClick={render} buttonText="Let's start" />
