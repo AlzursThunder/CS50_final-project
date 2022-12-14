@@ -1,0 +1,14 @@
+.categories--main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.categories-container {
+    display: flex;
+}
+
+.btns--container {
+    display: flex;
+    align-items: center;
+}

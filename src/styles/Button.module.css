@@ -1,31 +1,16 @@
-.welcome--main {
-	display: flex;
-	flex-direction: column;
-}
-
-.description--container {
-	width: 50%;
-	text-align: center;
-	margin: 2em auto;
-}
-
-.btn-container {
-	display: flex;
-	align-self: center;
-}
-
-/* .start-btn {
+.start-btn {
+	color: #fff;
 	background: #5035FF;
 	border: none;
 	border-radius: 5px;
 	box-shadow: 0px 3.2px 7.68px rgba(0, 0, 0, 0.18);
-	height: 40px;
-	width: 120px;
+	/* height: 40px; */
+	min-width: 120px;
 	font-size: 1.25rem;
 	font-weight: bold;
-	color: #fff;
 	cursor: pointer;
-	margin: 1.5em auto;
+	margin: 1.5em 2em;
+	padding: 0.5em 0.6em;
 }
 
 .start-btn:focus {
@@ -34,4 +19,4 @@
   
 .start-btn:active {
 	box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
-} */
+}
