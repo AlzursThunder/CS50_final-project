@@ -4,24 +4,20 @@ import styles from './styles/App.module.css'
 import './styles/global.css'
 
 import Welcome from './utils/Welcome'
-import Categories from './utils/Categories'
+import Options from './utils/Options'
 import Playground from './utils/Playground'
 
 function App() {
-	
+	const [renderOptions, setRenderOptions] = useState(false)
+	const [renderPlayground, setRenderPlayground] = useState(false)
+
+	const click = (state) => state(prev => !prev)
+
 	return (
 		<>
-			<Welcome />
-			<Categories />
-			{/* <BrowserRouter>
-				<Routes>
-				<Route path="/" element={<Layout />}>
-				<Route index element={<Welcome />}/>
-				<Route path="categories" element={<Categories />} />
-				</Route>
-				</Routes>
-			</BrowserRouter> */}
-			{/* <Playground /> */}
+			{!renderOptions ? <Welcome render={() => click(setRenderOptions)} /> : null}
+			{renderOptions && !renderPlayground ? <Options render={() => click(setRenderPlayground)} /> : null}
+			{renderPlayground ? <Playground /> : null}
 		</>	
 	)
 }

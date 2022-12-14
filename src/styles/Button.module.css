@@ -1,6 +1,6 @@
 .start-btn {
 	color: #fff;
-	background: #5035FF;
+	background: #0d6efd;
 	border: none;
 	border-radius: 5px;
 	box-shadow: 0px 3.2px 7.68px rgba(0, 0, 0, 0.18);
@@ -9,7 +9,7 @@
 	font-size: 1.25rem;
 	font-weight: bold;
 	cursor: pointer;
-	margin: 1.5em 2em;
+	margin: 1.5em 1em;
 	padding: 0.5em 0.6em;
 }
 
