@@ -11,7 +11,9 @@ import styles from '../styles/Options.module.css'
 
 export default function Options({
 	render,
-	categories
+	categories,
+	handleChange,
+	options
 }) {
 	const categoriesOption = categories.map(category => (
 		<option key={category.id} value={category.id}>{category.name}</option>
@@ -19,7 +21,12 @@ export default function Options({
 
 	const chooseCategory = (
 		<>
-			<select className={styles['categories--select']}>
+			<select 
+				onChange={handleChange} 
+				name="categoryId" 
+				className={styles['categories--select']}
+				value={options.categoryId}
+			>
 				<option value="">Choose category</option>
 				{categoriesOption}
 			</select>
@@ -29,21 +36,52 @@ export default function Options({
 	return (
 		<div className={styles['options--main']}>
 			<h1>Categories</h1>
-			<div className={styles['options-container']}>
-				<div className={styles['select-container']}>
+			<div className={styles['num--container']}>
+				<label>
+					
+					<br />
+					<input value={options.questionNum} onChange={handleChange} type="number" name="questionNum" />
+				</label>
+			</div>
+			<div className={styles['options--container']}>
+				<div className={styles['select--container']}>
 					{chooseCategory}
 					<p>Leave empty if want to face questions from every category</p>
 				</div>
 				<div className={styles['radio--container']}>
 					<p></p>
 					<label>
-						<input type="radio" name="level" id="" /> Easy
+						<input 
+							onChange={handleChange} 
+							type="radio" 
+							name="difficultyLevel" 
+							value='' 
+							/> Mixed categories
+					</label>
+
+					<label>
+						<input 
+							onChange={handleChange} 
+							type="radio" 
+							name="difficultyLevel" 
+							value='easy' 
+							/> Easy
 					</label>
 					<label>
-						<input type="radio" name="level" id="" /> Medium
+						<input 
+							onChange={handleChange} 
+							type="radio" 
+							name="difficultyLevel" 
+							value='medium' 
+							/> Medium
 					</label>
 					<label>
-						<input type="radio" name="level" id="" /> Hard
+						<input 
+							onChange={handleChange} 
+							type="radio" 
+							name="difficultyLevel" 
+							value='hard'
+							/> Hard
 					</label>
 				</div>
 			</div>
