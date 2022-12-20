@@ -6,7 +6,8 @@ import './styles/global.css'
 import Welcome from './utils/Welcome'
 import Options from './utils/Options'
 import Playground from './utils/Playground'
-import { click, getApi } from './functions/functions'
+// import { click, getApi } from './functions/functions'
+import { getApi, randNum } from './functions/functions'
 
 function App() {
 	const [renderOptions, setRenderOptions] = useState(false)
@@ -15,8 +16,8 @@ function App() {
 
 	const [categories, setCategories] = useState([])
 	const [options, setOptions] = useState({
-		questionNum: 5,
-		categoryId: 0,
+		questionNum: randNum(5, 10),
+		categoryId: '',
 		difficultyLevel: ''
 	})
 	const [questions, setQuestions] = useState([])
@@ -26,9 +27,10 @@ function App() {
 		getApi('https://opentdb.com/api_category.php',setCategories, 'trivia_categories')
 	}, [])
 
-	useEffect(() => {
-		console.log(options);
-	}, [options])
+	// useEffect(() => {
+	// 	console.log(options);
+	// 	console.log(questions);
+	// }, [options, questions])
 
 	function handleChanges(event) {
 		setOptions(prevOptions => ({
@@ -37,6 +39,23 @@ function App() {
 		}))
 	}
 	
+	const click = (displayState) => {
+		const link = renderOptions ?
+			`https://opentdb.com/api.php?amount=${options.questionNum}&category=${options.categoryId}&difficulty=${options.difficultyLevel}` :
+			null
+		// console.log(link);
+		displayState(prev => !prev)
+		renderOptions ?
+			getApi(link, setQuestions, 'results') :
+			null
+	}
+	
+	// async function getApi(link, setState, text) {
+	// 	const res = await fetch(link)
+	// 	const data = await res.json()
+	// 	setState(() => data[text])
+	// }
+
 	return (
 		<>
 			{!renderOptions ? 
@@ -50,7 +69,7 @@ function App() {
 					categories={categories}
 				/> : 
 				null}
-			{renderPlayground ? <Playground /> : null}
+			{renderPlayground ? <Playground questions={questions} /> : null}
 		</>	
 	)
 }

@@ -38,9 +38,14 @@ export default function Options({
 			<h1>Categories</h1>
 			<div className={styles['num--container']}>
 				<label>
-					
+					How much questions do you want (type number beetwen 5 - 10):
 					<br />
-					<input value={options.questionNum} onChange={handleChange} type="number" name="questionNum" />
+					<input 
+						value={options.questionNum} 
+						onChange={handleChange} 
+						type="number" 
+						name="questionNum" 
+					/>
 				</label>
 			</div>
 			<div className={styles['options--container']}>
@@ -55,8 +60,9 @@ export default function Options({
 							onChange={handleChange} 
 							type="radio" 
 							name="difficultyLevel" 
-							value='' 
-							/> Mixed categories
+							value=''
+							checked={options.difficultyLevel === ''}
+							/> Mixed difficulties
 					</label>
 
 					<label>
@@ -65,6 +71,7 @@ export default function Options({
 							type="radio" 
 							name="difficultyLevel" 
 							value='easy' 
+							checked={options.difficultyLevel === 'easy'}
 							/> Easy
 					</label>
 					<label>
@@ -73,6 +80,7 @@ export default function Options({
 							type="radio" 
 							name="difficultyLevel" 
 							value='medium' 
+							checked={options.difficultyLevel === 'medium'}
 							/> Medium
 					</label>
 					<label>
@@ -81,6 +89,7 @@ export default function Options({
 							type="radio" 
 							name="difficultyLevel" 
 							value='hard'
+							checked={options.difficultyLevel === 'hard'}
 							/> Hard
 					</label>
 				</div>

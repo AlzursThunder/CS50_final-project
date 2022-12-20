@@ -1,0 +1,34 @@
+.questions--container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/* overflow: auto; */
+	margin: 2em;
+}
+
+.question {
+	width: 90%;
+}
+
+.question h4 {
+	font-weight: bold;
+}
+
+.answers--container {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.answer {
+	display: flex;
+	max-width: 30%;
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 0.25em 0.35em;
+	cursor: pointer;
+	text-align: center;
+	align-items: center;
+	background: #fff;
+	color: #000;
+	margin: 0.25em;
+}

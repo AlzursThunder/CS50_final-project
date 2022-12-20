@@ -1,1 +1,1 @@
-# Quiz site
+# Quiz app
