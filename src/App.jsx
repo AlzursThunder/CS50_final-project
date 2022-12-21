@@ -6,7 +6,7 @@ import './styles/global.css'
 import Welcome from './utils/Welcome'
 import Options from './utils/Options'
 import Playground from './utils/Playground'
-// import { click, getApi } from './functions/functions'
+
 import { getApi, randNum } from './functions/functions'
 
 function App() {
@@ -38,23 +38,13 @@ function App() {
 			[event.target.name]: event.target.value
 		}))
 	}
-	
+	useEffect(() => {
+		const link = `https://opentdb.com/api.php?amount=${options.questionNum}&category=${options.categoryId}&difficulty=${options.difficultyLevel}`
+		getApi(link, setQuestions, 'results')
+	}, [options])
 	const click = (displayState) => {
-		const link = renderOptions ?
-			`https://opentdb.com/api.php?amount=${options.questionNum}&category=${options.categoryId}&difficulty=${options.difficultyLevel}` :
-			null
-		// console.log(link);
 		displayState(prev => !prev)
-		renderOptions ?
-			getApi(link, setQuestions, 'results') :
-			null
 	}
-	
-	// async function getApi(link, setState, text) {
-	// 	const res = await fetch(link)
-	// 	const data = await res.json()
-	// 	setState(() => data[text])
-	// }
 
 	return (
 		<>

@@ -32,3 +32,8 @@
 	color: #000;
 	margin: 0.25em;
 }
+
+.btn--container {
+	display: flex;
+	justify-content: center;
+}

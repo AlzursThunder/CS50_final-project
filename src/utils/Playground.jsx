@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import styles from '../styles/Playground.module.css'
+
 import { nanoid } from "nanoid";
 import { decode } from "he";
 import { shuffleArr } from "../functions/functions";
+
+import Button from "./Button";
 
 export default function Playground({
 	questions
@@ -16,6 +20,12 @@ export default function Playground({
 	// 	})
 	// 	return arr
 	// })
+	// console.log(questions);
+	const [finished, setFinished] = useState(false)
+	
+	useEffect(() => {
+
+	}, [finished])
 
 	// console.log(tmp);
 	const renderQuestions = questions.map(question => {
@@ -24,6 +34,7 @@ export default function Playground({
 		question.incorrect_answers.map(wrong => {
 			answers.push(<div key={nanoid()} className={styles.answer}>{decode(wrong)}</div>)
 		})
+		// console.log(answers);
 		shuffleArr(answers)
 		return (
 		<div key={nanoid()} className={styles.question}>
@@ -37,8 +48,16 @@ export default function Playground({
 	)})
 
 	return (
-		<div className={styles['questions--container']}>
-			{renderQuestions}
-		</div>
+		<>
+			<div className={styles['questions--container']}>
+				{renderQuestions}
+			</div>
+			<div className={styles['btn--container']}>
+				<Button 
+					buttonText='Submit'
+					handleClick=''
+				/>
+			</div>
+		</>
 	)
 }
