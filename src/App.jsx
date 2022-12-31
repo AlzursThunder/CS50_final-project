@@ -1,65 +1,97 @@
 import { useState, useEffect } from 'react'
 
-import styles from './styles/App.module.css'
 import './styles/global.css'
 
 import Welcome from './utils/Welcome'
 import Options from './utils/Options'
 import Playground from './utils/Playground'
 
-import { getApi, randNum } from './functions/functions'
+import {
+	click, 
+	getApi, 
+	randNum, 
+	handleChanges,
+	validateOptions
+} from './other/functions'
 
 function App() {
 	const [renderOptions, setRenderOptions] = useState(false)
 	const [renderPlayground, setRenderPlayground] = useState(false)
-	// const click = (state) => state(prev => !prev)
+	const [validOptions, setValidOptions] = useState('')
 
 	const [categories, setCategories] = useState([])
 	const [options, setOptions] = useState({
-		questionNum: randNum(5, 10),
+		questionNum: '',
 		categoryId: '',
 		difficultyLevel: ''
 	})
 	const [questions, setQuestions] = useState([])
 	
 	useEffect(() => {
-		// getApi('https://opentdb.com/api.php?amount=5', setQuestions, 'results')
 		getApi('https://opentdb.com/api_category.php',setCategories, 'trivia_categories')
 	}, [])
-
-	// useEffect(() => {
-	// 	console.log(options);
-	// 	console.log(questions);
-	// }, [options, questions])
-
-	function handleChanges(event) {
-		setOptions(prevOptions => ({
-			...prevOptions, 
-			[event.target.name]: event.target.value
-		}))
-	}
+	
 	useEffect(() => {
 		const link = `https://opentdb.com/api.php?amount=${options.questionNum}&category=${options.categoryId}&difficulty=${options.difficultyLevel}`
 		getApi(link, setQuestions, 'results')
 	}, [options])
-	const click = (displayState) => {
-		displayState(prev => !prev)
+	
+	// useEffect(() => {
+	// 	luck()
+	// 	const link = `https://opentdb.com/api.php?amount=${randomOptions.questionNum}&category=${randomOptions.categoryId}&difficulty=${randomOptions.difficultyLevel}`
+	// 	getApi(link, setRandomQuestions, 'results')
+	// }, [questions])
+
+	function luck() {
+		setOptions(() => {
+			const tmp = ['', 'easy', 'medium', 'hard']
+			const category = randNum(0, (categories.length + 1))
+			const difficulty = tmp[randNum(0,4)]
+			return {
+				questionNum: randNum(5, 11),
+				categoryId: category === categories.length ? '' : categories[category].id,
+				difficultyLevel: difficulty
+			}
+		})
 	}
 
 	return (
 		<>
 			{!renderOptions ? 
 				<Welcome render={() => click(setRenderOptions)} /> : 
-				null}
+				null
+			}
 			{renderOptions && !renderPlayground ? 
-				<Options 
+				<Options
 					options={options} 
-					handleChange={handleChanges} 
-					render={() => click(setRenderPlayground)} 
+					handleChange={event => handleChanges(event, setOptions)} 
+					render={() => {
+						validateOptions(5, 10, options.questionNum, setValidOptions, () => click(setRenderPlayground))
+					}}
+					luckyShot={() => {
+						luck()
+						setValidOptions(true)
+						click(setRenderPlayground)
+					}}
 					categories={categories}
+					validOptions={validOptions}
 				/> : 
-				null}
-			{renderPlayground ? <Playground questions={questions} /> : null}
+				null
+			}
+			{renderPlayground && validOptions === true && 
+				<Playground 
+					questions={questions} 
+					showOptions={() => {
+						setOptions({
+							questionNum: '',
+							categoryId: '',
+							difficultyLevel: ''
+						})
+						
+						click(setRenderPlayground)
+					}}
+				/> 
+			}
 		</>	
 	)
 }
